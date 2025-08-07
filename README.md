@@ -207,7 +207,7 @@ See [ATTRIBUTION.MD](ATTRIBUTION.MD) for third-party libraries, datasets, and to
   - [Unity Program Patterns](https://github.com/Habrador/Unity-Programming-Patterns)
 
 ## Documentation
-- [Conventions](docs/conventions.md)
-- [Granular Working](docs/research.md)
-- [Progress](docs/progress.md)
-- [Research](docs/Research.md)
+- [Conventions](Docs/Conventions.md)
+- [Granular Working](Docs/GranularWorking.md)
+- [Progress](Docs/Progress.md)
+- [Research](Docs/Research.md)
