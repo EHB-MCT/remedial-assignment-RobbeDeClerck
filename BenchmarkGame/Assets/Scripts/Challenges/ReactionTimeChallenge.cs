@@ -68,6 +68,8 @@ public class ReactionTimeChallenge : MonoBehaviour
     {
         testRunning = false;
 
+        DataTrackingManager.Instance.TrackChallenge1(reactionTime);
+
         // Play announcer clip (adjust index as needed)
         announcer.PlayClipByIndex(2); // “Challenge complete. Proceeding to next test.”
 

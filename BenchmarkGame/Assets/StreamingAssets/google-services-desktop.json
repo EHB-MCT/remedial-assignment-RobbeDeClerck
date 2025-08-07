@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "226543271588",
+    "project_id": "dev5-remedial",
+    "storage_bucket": "dev5-remedial.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226543271588:android:50b2b47af7660bbe883031",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.Dev5RemedialAssignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUWQb2Whzy1yLytbjsEwZQK5X4_81I-xs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

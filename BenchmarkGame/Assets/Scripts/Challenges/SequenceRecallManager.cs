@@ -94,6 +94,8 @@ public class SequenceRecallManager : MonoBehaviour
             float duration = Time.time - challengeStartTime;
             resultText.text = $"Attempts: {failedAttempts + 1}\nTime: {duration:F1}s";
 
+            DataTrackingManager.Instance.TrackChallenge2(failedAttempts, duration);
+
             announcer.PlayClipByIndex(5); // “Correct. Proceeding to final test.”
             StartCoroutine(gameFlowManager.TransitionToChallenge3());
         }

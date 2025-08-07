@@ -67,5 +67,5 @@
 /BenchmarkGame/[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Firebase files that are >100MB
-/BenchmarkGame/Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_5_0.bundle
-/BenchmarkGame/Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_5_0.so
+/BenchmarkGame/Assets/Firebase/Plugins/x86_64/FirebaseCppApp-13_0_0.bundle
+/BenchmarkGame/Assets/Firebase/Plugins/x86_64/FirebaseCppApp-13_0_0.so

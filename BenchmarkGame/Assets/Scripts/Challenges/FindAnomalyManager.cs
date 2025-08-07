@@ -68,15 +68,12 @@ public class FindAnomalyManager : MonoBehaviour
         float duration = Time.time - startTime;
         resultText.text = $"Incorrect Reports: {incorrectReports}\nTime: {duration:F1}s";
 
+        DataTrackingManager.Instance.TrackChallenge3(incorrectReports, duration);
+
         yield return new WaitUntil(() => !announcer.IsPlaying());
 
-        // Finish the game or trigger next phase
         fadeManager.FadeOut();
         yield return new WaitForSeconds(fadeManager.fadeDuration + 0.5f);
-
-        // Could show credits, restart, load main menu etc.
-        Debug.Log("Challenge complete. Game ending or transitioning...");
-        // TODO: Trigger your final event or scene here
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
