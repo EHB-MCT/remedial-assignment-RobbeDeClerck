@@ -1,0 +1,93 @@
+# 🚧 Project Progress Log
+
+This document tracks the development progress of the **Unity Game: Data Aggregation & Visualisation** project. It outlines major decisions, implementation stages, and methodology used to guide development.
+
+---
+
+## 📐 Unity Project Conventions
+
+**Status:** ✅ Finalized  
+**Date:** 2025-08-07
+
+- Chose a **content-based** folder structure for maintainability and scalability.
+- Established naming conventions based on PascalCase and camelCase.
+- Defined Unity-specific best practices (e.g., modular scripts, use of managers, ScriptableObjects).
+- Adopted GitHub best practices for project management and documentation.
+- Version control follows Git Flow with Conventional Commits for clarity.
+
+---
+
+## ♻️ Refactoring Existing Scripts
+
+**Status:** 🔄 In Progress  
+**Date Started:** 2025-08-07
+
+- Refactored monolithic task logic into modular scripts under `Scripts/Tasks/`.
+- Separated metric tracking into a dedicated `MetricsManager` class.
+- Created reusable prefabs and managers to reduce duplication.
+
+---
+
+## Cognitive Task Design
+
+**Status:** ✅ Finalized (for first iteration)  
+**Date:** 2025-08-07
+
+- Selected tasks designed to evaluate human cognition:
+  - Reaction Time Test
+  - Auditory Memory Challenge
+  - Visual Attention/Perception Task
+- Each task is implemented with dedicated scripts and UI feedback.
+
+---
+
+## 📊 Deciding Which Data to Track
+
+**Status:** ✅ Completed  
+**Date:** 2025-08-07
+
+The following metrics are tracked per player per session:
+- Player Reaction Time (milliseconds)
+- Auditory Memory Accuracy (percentage)
+- Visual Perception Accuracy (targets detected / missed)
+- Timestamp of each event
+- Task Completion Time
+- Number of retries (if applicable)
+
+---
+
+## ☁️ Firebase Integration for Data Tracking
+
+**Status:** 🔄 In Progress  
+**Date:** 2025-08-07
+
+- Integrated Firebase Realtime Database SDK into Unity project.
+- Created a `FirebaseDataService` class to handle writing and reading data.
+- Data is stored securely under anonymized player identifiers.
+- Each metric is written to Firebase after task completion or update.
+
+---
+
+## In-Game Data Visualisation
+
+**Status:** ✅ Completed (Initial Implementation)  
+**Date:** 2025-08-07
+
+- Added an in-game UI summary screen.
+- Metrics displayed include:
+  - Reaction Time average
+  - Visual/Auditory accuracy
+  - Total session duration
+- Data is refreshed and shown at the end of each task session.
+
+---
+
+## 🔄 Upcoming Tasks
+
+- [ ] Add Firebase implementation and data aggregation for unity data fetching
+- [ ] Refactor scripts to dedicated task folders for better clarity of use
+- [ ] Implement Normal/Hard difficulty changes of tasks
+
+---
+
+*This file will continue to be updated throughout the project lifecycle to reflect ongoing decisions and progress.*
