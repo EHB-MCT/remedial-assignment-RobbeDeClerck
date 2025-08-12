@@ -97,8 +97,7 @@ Assets/
 │   ├── Music/                      # Contains all sounds for music used
 │
 ├── Scripts/                        # All C# scripts
-│   ├── Tasks/                      # Each cognitive task (Reaction Time, Auditory Memory, etc.)
-│   ├── Metrics/                    # Logic for capturing and processing metrics
+│   ├── Challenges/                 # Each cognitive task/challenge (Reaction Time, Auditory Memory, etc.)
 │   ├── Services/                   # Firebase or other backend services
 │   ├── Managers/                   # Game, Input, and Task managers
 │
