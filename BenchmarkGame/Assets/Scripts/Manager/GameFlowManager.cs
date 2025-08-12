@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameFlowManager : MonoBehaviour
 {
     public static GameFlowManager Instance;
+    public DifficultyPlate.Difficulty CurrentDifficulty { get; private set; }
 
     public Transform challenge1SpawnPoint;
     public Transform challenge2SpawnPoint;
@@ -32,6 +33,8 @@ public class GameFlowManager : MonoBehaviour
     public void SelectDifficulty(DifficultyPlate.Difficulty difficulty)
     {
         Debug.Log("Selected difficulty: " + difficulty);
+        CurrentDifficulty = difficulty;
+
         StartCoroutine(TransitionToChallenge1());
     }
 

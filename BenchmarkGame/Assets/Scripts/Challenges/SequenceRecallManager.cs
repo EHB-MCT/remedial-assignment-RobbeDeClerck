@@ -26,7 +26,24 @@ public class SequenceRecallManager : MonoBehaviour
 
     public void StartChallenge()
     {
+        ApplyDifficultySettings();
         StartCoroutine(RunChallenge());
+    }
+
+    private void ApplyDifficultySettings()
+    {
+        var diff = GameFlowManager.Instance.CurrentDifficulty;
+
+        if (diff == DifficultyPlate.Difficulty.Hard)
+        {
+            sequenceLength = 6;
+            timeBetweenNumbers = 1.0f;
+        }
+        else
+        {
+            sequenceLength = 4;
+            timeBetweenNumbers = 1.2f;
+        }
     }
 
     private IEnumerator RunChallenge()
