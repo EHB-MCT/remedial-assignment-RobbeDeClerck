@@ -82,11 +82,30 @@ The following metrics are tracked per player per session:
 
 ---
 
+## Firebase Implementation
+
+**Status:** ✅ Completed
+**Date:** 2025-08-12
+
+- Added Realtime Database integration into the project.
+- All statistics achieved by the player is saved and stored into the Firebase Database, fetched and displayed back into Unity scene.
+- Players must relaunch the game to see the achieved scores on the global leaderboard (personal statistics are showcased immediately after finishing).
+
+---
+
+## Difficulty Implementation
+
+**Status:** ✅ Completed
+**Date:** 2025-08-12
+
+- Added integration of normal and hard difficulty changes in the sequence challenge
+- Players have to remember more numbers and are given less time inbetween each number.
+
+---
+
 ## 🔄 Upcoming Tasks
 
-- [ ] Add Firebase implementation and data aggregation for unity data fetching
 - [ ] Refactor scripts to dedicated task folders for better clarity of use
-- [ ] Implement Normal/Hard difficulty changes of tasks
 
 ---
 
