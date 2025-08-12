@@ -19,11 +19,11 @@ This document tracks the development progress of the **Unity Game: Data Aggregat
 
 ## ♻️ Refactoring Existing Scripts
 
-**Status:** 🔄 In Progress  
-**Date Started:** 2025-08-07
+**Status:** ✅ Completed  
+**Date Started:** 2025-08-12
 
-- Refactored monolithic task logic into modular scripts under `Scripts/Tasks/`.
-- Separated metric tracking into a dedicated `MetricsManager` class.
+- Refactored monolithic task logic into modular scripts under `Scripts/Challenges/`.
+- Separated metric tracking into a dedicated `DatabaseManager` class.
 - Created reusable prefabs and managers to reduce duplication.
 
 ---
@@ -58,11 +58,10 @@ The following metrics are tracked per player per session:
 
 ## ☁️ Firebase Integration for Data Tracking
 
-**Status:** 🔄 In Progress  
+**Status:** ✅ Completed  
 **Date:** 2025-08-07
 
 - Integrated Firebase Realtime Database SDK into Unity project.
-- Created a `FirebaseDataService` class to handle writing and reading data.
 - Data is stored securely under anonymized player identifiers.
 - Each metric is written to Firebase after task completion or update.
 
@@ -105,7 +104,7 @@ The following metrics are tracked per player per session:
 
 ## 🔄 Upcoming Tasks
 
-- [ ] Refactor scripts to dedicated task folders for better clarity of use
+- 
 
 ---
 
