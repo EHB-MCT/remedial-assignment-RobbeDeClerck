@@ -53,6 +53,15 @@ git clone https://github.com/EHB-MCT/remedial-assignment-RobbeDeClerck.git
 
 ---
 
+# 🔊 Audio Requirement Disclaimer
+
+This project **requires audio playback** for certain cognitive tasks, specifically the **Auditory Memory** challenge.  
+Players must ensure that their device’s sound is **enabled and functional** in order to successfully complete all tasks.  
+Using headphones is recommended for the best experience and to avoid missing important auditory cues.
+
+
+---
+
 # 🚀 Features
 
 - 🎮 **Three Modular Cognitive Tasks**
