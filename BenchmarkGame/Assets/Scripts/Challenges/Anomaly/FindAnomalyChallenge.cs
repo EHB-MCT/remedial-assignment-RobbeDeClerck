@@ -2,35 +2,38 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class FindAnomalyManager : MonoBehaviour
+/// <summary>
+/// Challenge 3: Player must find and report the anomaly.
+/// </summary>
+public class FindAnomalyChallenge : ChallengeBase
 {
     [Header("Settings")]
-    public float interactionRange = 3f;
-    public KeyCode interactionKey = KeyCode.F;
+    [SerializeField] private float interactionRange = 3f;
+    [SerializeField] private KeyCode interactionKey = KeyCode.F;
 
     [Header("References")]
-    public Camera playerCamera;
-    public AnnouncerManager announcer;
-    public GameFlowManager gameFlowManager;
-    public ScreenFadeManager fadeManager;
-    public Transform challengeFinishedPoint;
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private AnnouncerManager announcer;
+    [SerializeField] private TMP_Text resultText;
+    [SerializeField] private Transform challengeFinishedPoint;
+    [SerializeField] private UI_ScreenFadeManager fadeManager;
+
     private bool challengeActive = false;
     private bool inputLocked = false;
 
-
-    [Header("Data Tracking")]
+    // Tracking
     private float startTime;
     private int incorrectReports = 0;
-    [SerializeField] private TMP_Text resultText;
 
-    public void StartChallenge()
+    public override IEnumerator StartChallenge()
     {
         challengeActive = true;
-        announcer.PlayClipByIndex(7); // "An anomaly has appeared. Find it and report it."
+        announcer.PlayClipByIndex(7); // “An anomaly has appeared. Find it and report it.”
         startTime = Time.time;
+        yield break;
     }
 
-    void Update()
+    private void Update()
     {
         if (!challengeActive || inputLocked) return;
 
@@ -43,9 +46,7 @@ public class FindAnomalyManager : MonoBehaviour
     private void TryDetectAnomaly()
     {
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, interactionRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionRange))
         {
             if (hit.collider.GetComponent<AnomalyTarget>())
             {
@@ -53,9 +54,8 @@ public class FindAnomalyManager : MonoBehaviour
             }
             else
             {
-                // Optional: feedback for incorrect object
                 incorrectReports++;
-                Debug.Log("That’s not the anomaly.");
+                Debug.Log("Incorrect object reported.");
             }
         }
     }
@@ -63,30 +63,31 @@ public class FindAnomalyManager : MonoBehaviour
     private IEnumerator HandleSuccess()
     {
         inputLocked = true;
+        challengeActive = false;
+
         announcer.PlayClipByIndex(8); // “Correct. The anomaly has been identified.”
-
         float duration = Time.time - startTime;
-        resultText.text = $"Incorrect Reports: {incorrectReports}\nTime: {duration:F1}s";
 
+        resultText.text = $"Incorrect Reports: {incorrectReports}\nTime: {duration:F1}s";
         DataTrackingManager.Instance.TrackChallenge3(incorrectReports, duration);
 
         yield return new WaitUntil(() => !announcer.IsPlaying());
 
+        yield return TransitionToFinishPoint();
+    }
+
+    private IEnumerator TransitionToFinishPoint()
+    {
         fadeManager.FadeOut();
         yield return new WaitForSeconds(fadeManager.fadeDuration + 0.5f);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-
         CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null)
-            cc.enabled = false;
+        if (cc != null) cc.enabled = false;
 
         player.transform.position = challengeFinishedPoint.position;
 
-        if (cc != null)
-        {
-            cc.enabled = true;
-        }
+        if (cc != null) cc.enabled = true;
 
         fadeManager.FadeIn();
     }
