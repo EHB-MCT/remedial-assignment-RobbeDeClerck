@@ -16,7 +16,7 @@ public class FindAnomalyChallenge : ChallengeBase
     [SerializeField] private AnnouncerManager announcer;
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private Transform challengeFinishedPoint;
-    [SerializeField] private ScreenFadeManager fadeManager;
+    [SerializeField] private UI_ScreenFadeManager fadeManager;
 
     private bool challengeActive = false;
     private bool inputLocked = false;

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class ScreenFadeManager : MonoBehaviour
+public class UI_ScreenFadeManager : MonoBehaviour
 {
     public Image fadeImage; // Fullscreen UI Image (black)
     public float fadeDuration = 1f;

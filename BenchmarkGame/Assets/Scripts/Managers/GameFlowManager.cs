@@ -13,7 +13,7 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField] private Transform[] challengeSpawnPoints;
 
     [Header("Managers")]
-    [SerializeField] private ScreenFadeManager fadeManager;
+    [SerializeField] private UI_ScreenFadeManager fadeManager;
     [SerializeField] private AnnouncerManager announcer;
 
     [Header("Challenges")]
