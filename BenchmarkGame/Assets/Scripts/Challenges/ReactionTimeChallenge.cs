@@ -1,49 +1,53 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections;
-public class ReactionTimeChallenge : MonoBehaviour
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
+/// <summary>
+/// Challenge 1: Reaction Time test.
+/// After a certain delay, the player's screen will turn from red to green and it is required to react in time.
+/// </summary>
+public class ReactionTimeChallenge : ChallengeBase
 {
     [Header("UI")]
-    public Image screenColorOverlay;
-    public TextMeshProUGUI resultText;
+    [SerializeField] private Image screenColorOverlay;
+    [SerializeField] private TextMeshProUGUI resultText;
 
     [Header("Timing")]
-    public float minWaitTime = 2f;
-    public float maxWaitTime = 5f;
+    [SerializeField] private float minWaitTime = 2f;
+    [SerializeField] private float maxWaitTime = 5f;
 
-    private bool testRunning = false;
-    private bool canPress = false;
+    [Header("Managers")]
+    [SerializeField] private AnnouncerManager announcer;
+    [SerializeField] private GameFlowManager gameFlowManager;
+
+    private bool canPress;
     private float startTime;
     private float reactionTime;
 
-    [Header("Next Challenge")]
-    public AnnouncerManager announcer;
-    public ScreenFadeManager fadeManager;
-    public GameFlowManager gameFlowManager;
-    public float delayBeforeNextChallenge = 2f;
-
-    private void Start()
+    void Start()
     {
         screenColorOverlay.gameObject.SetActive(false);
     }
 
-    public void StartReactionTest()
+    public override IEnumerator StartChallenge()
     {
-        if (testRunning) return;
+        // Play intro explanation voiceline
+        announcer.PlayClipByIndex(1);
 
-        StartCoroutine(RunReactionTest());
+        // Wait until the voiceline finishes playing
+        yield return new WaitUntil(() => !announcer.IsPlaying());
+
+        // Under normal circumstances, we run the challenge through here, but since this challenge is specificially triggered through stepping on a plate, it is defined in ReactionTimeTrigger.
+        // yield return RunReactionTest();
     }
 
-    private IEnumerator RunReactionTest()
+    public IEnumerator RunReactionTest()
     {
-        testRunning = true;
-
         screenColorOverlay.color = Color.red;
         screenColorOverlay.gameObject.SetActive(true);
 
-        float waitTime = Random.Range(minWaitTime, maxWaitTime);
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
 
         screenColorOverlay.color = Color.green;
         startTime = Time.time;
@@ -56,24 +60,15 @@ public class ReactionTimeChallenge : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            reactionTime = Time.time - startTime;
             canPress = false;
+            reactionTime = Time.time - startTime;
             screenColorOverlay.gameObject.SetActive(false);
             resultText.text = $"Reaction Time: {reactionTime:F3} seconds";
-            Invoke(nameof(ResetTest), 2f);
+
+            DataTrackingManager.Instance.TrackChallenge1(reactionTime);
+            announcer.PlayClipByIndex(2); // “Challenge complete...”
+
+            StartCoroutine(gameFlowManager.TransitionToChallenge(1));
         }
-    }
-
-    private void ResetTest()
-    {
-        testRunning = false;
-
-        DataTrackingManager.Instance.TrackChallenge1(reactionTime);
-
-        // Play announcer clip (adjust index as needed)
-        announcer.PlayClipByIndex(2); // “Challenge complete. Proceeding to next test.”
-
-        // Start transition after delay
-        StartCoroutine(gameFlowManager.TransitionToChallenge2());
     }
 }

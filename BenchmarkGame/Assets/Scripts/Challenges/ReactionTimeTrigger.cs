@@ -11,10 +11,11 @@ public class ReactionTimeTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             hasTriggered = true;
+
             ReactionTimeChallenge manager = FindObjectOfType<ReactionTimeChallenge>();
             if (manager != null)
             {
-                manager.StartReactionTest();
+                StartCoroutine(manager.RunReactionTest());
             }
         }
     }

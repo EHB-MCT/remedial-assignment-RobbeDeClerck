@@ -3,31 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class SequenceRecallManager : MonoBehaviour
+/// <summary>
+/// Challenge 2: Sequence Recall memory test.
+/// Plays a sequence of numbers via announcer, then waits for player input.
+/// </summary>
+public class SequenceRecallChallenge : ChallengeBase
 {
     [Header("Settings")]
-    public int sequenceLength = 4;
-    public float timeBetweenNumbers = 1.2f;
+    [SerializeField] private int sequenceLength = 4;
+    [SerializeField] private float timeBetweenNumbers = 1.2f;
 
     [Header("References")]
-    public AnnouncerManager announcer;
-    public ScreenFadeManager fadeManager;
-    public GameFlowManager gameFlowManager;
-    public TMP_Text feedbackText;
+    [SerializeField] private AnnouncerManager announcer;
+    [SerializeField] private TMP_Text feedbackText;
+    [SerializeField] private TMP_Text resultText;
+    [SerializeField] private GameFlowManager gameFlowManager;
 
     private List<int> numberSequence = new List<int>();
     private string playerInput = "";
     private bool inputAllowed = false;
 
-    [Header("Data Tracking")]
+    // Tracking
     private float challengeStartTime;
     private int failedAttempts = 0;
-    [SerializeField] private TMP_Text resultText;
 
-    public void StartChallenge()
+    public override IEnumerator StartChallenge()
     {
+        // Play intro explanation voiceline
+        announcer.PlayClipByIndex(3);
+
+        // Wait until the voiceline finishes playing
+        yield return new WaitUntil(() => !announcer.IsPlaying());
+
         ApplyDifficultySettings();
-        StartCoroutine(RunChallenge());
+        yield return RunChallenge();
     }
 
     private void ApplyDifficultySettings()
@@ -48,17 +57,15 @@ public class SequenceRecallManager : MonoBehaviour
 
     private IEnumerator RunChallenge()
     {
-        // Announcer intro
-        announcer.PlayClipByIndex(4); // "Listen carefully..."
-        yield return new WaitForSeconds(announcer.GetClipLength(3) + 0.5f);
+        announcer.PlayClipByIndex(4); // “Listen carefully…”
+        yield return new WaitForSeconds(announcer.GetClipLength(4) + 0.5f);
 
         GenerateSequence();
 
         // Play each number via announcer
-        for (int i = 0; i < numberSequence.Count; i++)
+        foreach (int number in numberSequence)
         {
-            int number = numberSequence[i];
-            announcer.PlayClipByNumber(number); // e.g., clip for "4"
+            announcer.PlayClipByNumber(number);
             yield return new WaitForSeconds(timeBetweenNumbers);
         }
 
@@ -72,9 +79,9 @@ public class SequenceRecallManager : MonoBehaviour
         numberSequence.Clear();
         for (int i = 0; i < sequenceLength; i++)
         {
-            numberSequence.Add(Random.Range(0, 10)); // Digits 0–9
-            Debug.Log(numberSequence);
+            numberSequence.Add(Random.Range(0, 10)); // 0–9
         }
+        Debug.Log($"Generated sequence: {string.Join("", numberSequence)}");
     }
 
     private void Update()
@@ -88,14 +95,12 @@ public class SequenceRecallManager : MonoBehaviour
                 playerInput += c;
                 feedbackText.text = playerInput;
             }
-
-            if (c == '\b' && playerInput.Length > 0) // backspace
+            else if (c == '\b' && playerInput.Length > 0) // backspace
             {
                 playerInput = playerInput.Substring(0, playerInput.Length - 1);
                 feedbackText.text = playerInput;
             }
-
-            if (c == '\n' || c == '\r') // enter
+            else if (c == '\n' || c == '\r') // enter
             {
                 inputAllowed = false;
                 CheckAnswer();
@@ -114,11 +119,11 @@ public class SequenceRecallManager : MonoBehaviour
             DataTrackingManager.Instance.TrackChallenge2(failedAttempts, duration);
 
             announcer.PlayClipByIndex(5); // “Correct. Proceeding to final test.”
-            StartCoroutine(gameFlowManager.TransitionToChallenge3());
+            StartCoroutine(gameFlowManager.TransitionToChallenge(2)); // Move to challenge 3
         }
         else
         {
-            // announcer.PlayClipByIndex(6); // “Incorrect. Try again.”
+            failedAttempts++;
             ResetChallenge();
         }
     }
@@ -127,9 +132,6 @@ public class SequenceRecallManager : MonoBehaviour
     {
         playerInput = "";
         inputAllowed = false;
-        failedAttempts++;
         StartCoroutine(RunChallenge());
     }
-
-
 }

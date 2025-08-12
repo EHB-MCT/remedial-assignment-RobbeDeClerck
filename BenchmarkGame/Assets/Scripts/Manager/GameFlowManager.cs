@@ -1,129 +1,72 @@
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 
 public class GameFlowManager : MonoBehaviour
 {
-    public static GameFlowManager Instance;
+    public static GameFlowManager Instance { get; private set; }
     public DifficultyPlate.Difficulty CurrentDifficulty { get; private set; }
 
-    public Transform challenge1SpawnPoint;
-    public Transform challenge2SpawnPoint;
-    public Transform challenge3SpawnPoint;
-    public ScreenFadeManager fadeManager;
-    public AnnouncerManager announcer;
-    [SerializeField] private SequenceRecallManager sequenceRecallManager;
-    [SerializeField] private FindAnomalyManager anomalyManager;
+    [Header("Spawns")]
+    [Tooltip("Every challenge has a spawn point where the player teleports to. Add this into the list!")]
+
+    [SerializeField] private Transform[] challengeSpawnPoints;
+
+    [Header("Managers")]
+    [SerializeField] private ScreenFadeManager fadeManager;
+    [SerializeField] private AnnouncerManager announcer;
+
+    [Header("Challenges")]
+    [Tooltip("To add a challenge, add it into the inspector list of current challenges!")]
+    [SerializeField] private ChallengeBase[] challenges;
+
+    private PlayerTeleportService teleportService;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
+        teleportService = new PlayerTeleportService();
     }
 
     private void Start()
     {
-        fadeManager.FadeIn(() =>
-        {
-            announcer.PlayClipByIndex(0); // “Please choose your difficulty...”
-        });
+        fadeManager.FadeIn(() => announcer.PlayClipByIndex(0)); // “Choose difficulty”
     }
 
     public void SelectDifficulty(DifficultyPlate.Difficulty difficulty)
     {
-        Debug.Log("Selected difficulty: " + difficulty);
         CurrentDifficulty = difficulty;
-
-        StartCoroutine(TransitionToChallenge1());
+        StartCoroutine(TransitionToChallenge(0)); // Teleport only
     }
 
-    private IEnumerator TransitionToChallenge1()
+    /// <summary>
+    /// Teleports the player and starts the challenge (for challenges after the first).
+    /// </summary>
+    public IEnumerator TransitionToChallenge(int challengeIndex)
     {
         fadeManager.FadeOut();
-
         yield return new WaitForSeconds(fadeManager.fadeDuration + 0.2f);
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-        CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null)
-        {
-            cc.enabled = false;
-        }
-
-        player.transform.position = challenge1SpawnPoint.position;
-
-        if (cc != null)
-        {
-            cc.enabled = true;
-        }
-        fadeManager.FadeIn(() =>
-        {
-            announcer.PlayClipByIndex(1); // “Challenge one: Reaction Time Test...”
-        });
-    }
-
-    public IEnumerator TransitionToChallenge2()
-    {
-        fadeManager.FadeOut();
-
-        yield return new WaitForSeconds(fadeManager.fadeDuration + 0.2f);
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-        CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null)
-        {
-            cc.enabled = false;
-        }
-
-        player.transform.position = challenge2SpawnPoint.position;
-
-        if (cc != null)
-        {
-            cc.enabled = true;
-        }
+        teleportService.TeleportPlayer(challengeSpawnPoints[challengeIndex]);
 
         fadeManager.FadeIn(() =>
         {
-            announcer.PlayClipByIndex(3); // “Challenge 2: Audio Memory...”
-            StartCoroutine(StartSequenceRecallAfterIntro());
+            StartCoroutine(challenges[challengeIndex].StartChallenge());
         });
-
-        yield return null;
     }
 
-    private IEnumerator StartSequenceRecallAfterIntro()
-    {
-        yield return new WaitUntil(() => !announcer.IsPlaying());
-        yield return new WaitForSeconds(0.2f); // Optional small buffer
-        sequenceRecallManager.StartChallenge();
-    }
-
-
-    public IEnumerator TransitionToChallenge3()
+    /// <summary>
+    /// Teleports the player without starting the challenge (used for Challenge 1).
+    /// </summary>
+    public IEnumerator TransitionToChallengeSpawnOnly(int challengeIndex)
     {
         fadeManager.FadeOut();
-
         yield return new WaitForSeconds(fadeManager.fadeDuration + 0.2f);
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        teleportService.TeleportPlayer(challengeSpawnPoints[challengeIndex]);
 
-        CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null)
-            cc.enabled = false;
-
-        player.transform.position = challenge3SpawnPoint.position;
-
-        if (cc != null)
-            cc.enabled = true;
-
-        fadeManager.FadeIn(() =>
-        {
-            anomalyManager.StartChallenge();
-        });
-
-        yield return null;
+        fadeManager.FadeIn(); // Challenge 1 will be triggered by the plate
     }
 }

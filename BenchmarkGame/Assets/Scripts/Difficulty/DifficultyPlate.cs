@@ -1,11 +1,13 @@
 using UnityEngine;
 
+/// <summary>
+/// Plate that sets difficulty when the player steps on it.
+/// </summary>
 public class DifficultyPlate : MonoBehaviour
 {
     public enum Difficulty { Regular, Hard }
-    public Difficulty plateDifficulty;
-
-    private bool triggered = false;
+    [SerializeField] private Difficulty plateDifficulty;
+    private bool triggered;
 
     private void OnTriggerEnter(Collider other)
     {
