@@ -188,7 +188,7 @@ See the [MIT License](LICENSE.md) file for full details.
 
 # 🙏 Attribution
 
-See [ATTRIBUTION.MD](ATTRIBUTION.md) for third-party libraries, datasets, and tools used.
+See [ATTRIBUTION.MD](ATTRIBUTION.MD) for third-party libraries, datasets, and tools used.
 
 ---
 
