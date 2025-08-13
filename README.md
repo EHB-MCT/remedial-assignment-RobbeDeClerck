@@ -182,13 +182,19 @@ Please read [CONTRIBUTING.MD](CONTRIBUTING.MD) for setup instructions, coding gu
 # 📄 License
 
 This project is licensed under the MIT License. 
-See the [MIT License](LICENSE.txt) file for full details.
+See the [MIT License](LICENSE.MD) file for full details.
 
 ---
 
 # 🙏 Attribution
 
 See [ATTRIBUTION.MD](ATTRIBUTION.MD) for third-party libraries, datasets, and tools used.
+
+---
+
+# 🧠 AI Usage
+
+See [AI Usage.MD](AI_USAGE.MD) for AI usage in this project.
 
 ---
 
@@ -206,14 +212,27 @@ See [ATTRIBUTION.MD](ATTRIBUTION.MD) for third-party libraries, datasets, and to
   [GitHub Docs – GitHub Flow](https://docs.github.com/en/get-started/quickstart/github-flow)
 
 - **SOLID Principles**
-  - [Unity SOLID Principles](https://medium.com/@mthndmr16/the-importance-and-application-of-solid-principles-in-unity-game-development-94be186ad51f)
-  - [Unity SOLID Principles](https://youtu.be/QDldZWvNK_E)
-  - [Unity SOLID Principles](https://www.youtube.com/watch?v=2COJ7hYGkt8)
+  - [Unity SOLID Principles](https://medium.com/@mthndmr16/the-importance-and-application-of-solid-principles-in-unity-game-development-94be186ad51f) → minimal integration in `AnomalyTarget.cs`
+  - [Unity SOLID Principles](https://youtu.be/QDldZWvNK_E) → `IChallenge.cs`
+  - [Unity SOLID Principles](https://www.youtube.com/watch?v=2COJ7hYGkt8) → `PlayerMovementController.cs`
+
+- **SOLID Principles** *(Applied in Project)*  
+  - `GameFlowManager` (scene/challenge transitions), `DataTrackingManager` (metrics storage)  
+  - `ChallengeBase` + derived challenge scripts (extensible without modifying base)  
+  - Any challenge can replace another in `GameFlowManager` via `ChallengeBase`  
+  - `IDataUploader` keeps upload logic separate from challenge logic  
+  - `PlayerTeleportService` injected into `GameFlowManager`
 
 - **Design Patterns**
   - [Unity Design Patterns](https://learn.unity.com/project/65de084fedbc2a0699d68bfb)
   - [Unity Design Patterns](https://medium.com/@sonusprocks/design-patterns-in-unity-c-in-simple-words-4e05d57f86aa)
   - [Unity Program Patterns](https://github.com/Habrador/Unity-Programming-Patterns)
+
+- **Design Patterns** *(Applied in Project)*  
+  - **Singleton** → `GameFlowManager.cs`, `DataTrackingManager.cs`  
+  - **Template Method** → `ChallengeBase.StartChallenge()` defines the flow, subclasses implement specifics  
+  - **Observer/Event** → Challenges notify `DataTrackingManager.cs` on completion without tight coupling  
+  - **Service Locator** → `PlayerTeleportService.cs` accessed without direct dependency
 
 ## Documentation
 - [Conventions](Docs/Conventions.md)
