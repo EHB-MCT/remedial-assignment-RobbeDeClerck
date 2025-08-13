@@ -175,26 +175,26 @@ Instead of using external graphing tools, this project displays **player perform
 # 🤝 Contributing
 
 Contributions are welcome!
-Please read [CONTRIBUTING.MD](CONTRIBUTING.MD) for setup instructions, coding guidelines, and branch naming conventions.
+Please read [CONTRIBUTING.MD](CONTRIBUTING.md) for setup instructions, coding guidelines, and branch naming conventions.
 
 ---
 
 # 📄 License
 
 This project is licensed under the MIT License. 
-See the [MIT License](LICENSE.MD) file for full details.
+See the [MIT License](LICENSE.md) file for full details.
 
 ---
 
 # 🙏 Attribution
 
-See [ATTRIBUTION.MD](ATTRIBUTION.MD) for third-party libraries, datasets, and tools used.
+See [ATTRIBUTION.MD](ATTRIBUTION.md) for third-party libraries, datasets, and tools used.
 
 ---
 
 # 🧠 AI Usage
 
-See [AI Usage.MD](AI_USAGE.MD) for AI usage in this project.
+See [AI_USAGE.md](AI_USAGE.md) for AI usage in this project.
 
 ---
 
