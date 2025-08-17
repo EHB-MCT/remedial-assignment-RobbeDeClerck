@@ -1,8 +1,10 @@
-# 🧠 Unity Game: Data Aggregation & Visualisation
+# 🧠 Benchmarker Game: Data Aggregation, Visualisation & Resources Economy
 
-This Unity project is developed to implement **data aggregation** and **visualize player data** in the context of three well-established **human cognitive tasks**. Its purpose is to **benchmark and analyze human decision-making** under both normal and challenging conditions by studying reaction, memory, attention, and perception. 
+This Unity project is developed to implement **data aggregation**, **visualize player data**, and introduce a simple **resource economy** in the context of three well-established **human cognitive tasks**.  
 
-The collected data aims to help researchers and developers **understand how players make decisions**, identify patterns in cognitive performance, and inform improvements in design, training, or adaptive systems.
+Its purpose is to **benchmark and analyze human decision-making** under both normal and challenging conditions by studying reaction, memory, attention, and perception. At the same time, it integrates a **points-based resource system**, where players earn points by completing challenges. These points act as a **currency** that persists between sessions and can be spent to **unlock harder difficulties**.  
+
+The collected cognitive and economy data aims to help researchers and developers **understand how players make decisions**, identify patterns in cognitive performance, and observe how players interact with a reward-based system. This dual approach combines **performance benchmarking** with a **lightweight economy simulation**, aligning with both research and development requirements.
 
 ---
 
@@ -59,6 +61,23 @@ This project **requires audio playback** for certain cognitive tasks, specifical
 Players must ensure that their device’s sound is **enabled and functional** in order to successfully complete all tasks.  
 Using headphones is recommended for the best experience and to avoid missing important auditory cues.
 
+---
+
+## 💰 Resource Economy
+
+In addition to benchmarking cognitive performance, the project introduces a **lightweight resource economy**:
+
+- 🎯 **Earning Points**  
+  - Each completed cognitive task (Reaction Time, Auditory Memory, Visual Perception) rewards the player with points.  
+  - The amount of points may scale with performance (e.g., faster reactions, higher accuracy).  
+
+- 💾 **Persistent Storage**  
+  - Points are stored locally in a JSON file on the player’s machine.  
+  - This ensures resources **carry over between play sessions**, simulating persistent progression.  
+
+- 🔓 **Unlocking Difficulties**  
+  - The **Hard difficulty plate** requires a certain number of points to activate.  
+  - Players who haven’t earned enough cannot step on the plate, simulating a gated economy system.  
 
 ---
 
@@ -217,11 +236,11 @@ See [AI_USAGE.md](AI_USAGE.md) for AI usage in this project.
   - [Unity SOLID Principles](https://www.youtube.com/watch?v=2COJ7hYGkt8) → `PlayerMovementController.cs`
 
 - **SOLID Principles** *(Applied in Project)*  
-  - `GameFlowManager` (scene/challenge transitions), `DataTrackingManager` (metrics storage)  
-  - `ChallengeBase` + derived challenge scripts (extensible without modifying base)  
-  - Any challenge can replace another in `GameFlowManager` via `ChallengeBase`  
-  - `IDataUploader` keeps upload logic separate from challenge logic  
-  - `PlayerTeleportService` injected into `GameFlowManager`
+  - `GameFlowManager.cs` (scene/challenge transitions), `DataTrackingManager.cs` (metrics storage)  
+  - `IChallenge.cs` + derived challenge scripts (extensible without modifying base)  
+  - Any challenge can replace another in `GameFlowManager.cs` via `IChallenge.cs`  
+  - `DataObserver.cs` keeps upload logic separate from challenge logic  
+  - `PlayerTeleportService.cs` injected into `GameFlowManager.cs`
 
 - **Design Patterns**
   - [Unity Design Patterns](https://learn.unity.com/project/65de084fedbc2a0699d68bfb)
