@@ -87,4 +87,4 @@ Any open-source dependencies remain under their respective licenses.
 
 ## Contact
 For any questions regarding AI usage in this project, please contact:  
-**Robbe De Clerck** — *Lead Developer*
+**Robbe De Clerck** (robbedeclerckinc@gmail.com) — *Lead Developer*

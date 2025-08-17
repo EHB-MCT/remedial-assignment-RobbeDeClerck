@@ -7,7 +7,8 @@ This document tracks the development progress of the **Unity Game: Data Aggregat
 ## 📐 Unity Project Conventions
 
 **Status:** ✅ Finalized  
-**Date:** 2025-08-07
+**Date Started:** 2025-08-07
+**Date Ended:** 2025-08-07
 
 - Chose a **content-based** folder structure for maintainability and scalability.
 - Established naming conventions based on PascalCase and camelCase.
@@ -20,7 +21,8 @@ This document tracks the development progress of the **Unity Game: Data Aggregat
 ## ♻️ Refactoring Existing Scripts
 
 **Status:** ✅ Completed  
-**Date Started:** 2025-08-12
+**Date Started:** 2025-08-07
+**Date Ended:** 2025-08-12
 
 - Refactored monolithic task logic into modular scripts under `Scripts/Challenges/`.
 - Separated metric tracking into a dedicated `DatabaseManager` class.
@@ -31,7 +33,8 @@ This document tracks the development progress of the **Unity Game: Data Aggregat
 ## Cognitive Task Design
 
 **Status:** ✅ Finalized (for first iteration)  
-**Date:** 2025-08-07
+**Date Started:** 2025-08-07
+**Date Ended:** 2025-08-12
 
 - Selected tasks designed to evaluate human cognition:
   - Reaction Time Test
@@ -44,7 +47,8 @@ This document tracks the development progress of the **Unity Game: Data Aggregat
 ## 📊 Deciding Which Data to Track
 
 **Status:** ✅ Completed  
-**Date:** 2025-08-07
+**Date Started:** 2025-08-07
+**Date Ended:** 2025-08-12
 
 The following metrics are tracked per player per session:
 - Player Reaction Time (milliseconds)
@@ -59,7 +63,8 @@ The following metrics are tracked per player per session:
 ## ☁️ Firebase Integration for Data Tracking
 
 **Status:** ✅ Completed  
-**Date:** 2025-08-07
+**Date Started:** 2025-08-07
+**Date Ended:** 2025-08-12
 
 - Integrated Firebase Realtime Database SDK into Unity project.
 - Data is stored securely under anonymized player identifiers.
@@ -70,7 +75,8 @@ The following metrics are tracked per player per session:
 ## In-Game Data Visualisation
 
 **Status:** ✅ Completed (Initial Implementation)  
-**Date:** 2025-08-07
+**Date Started:** 2025-08-07
+**Date Ended:** 2025-08-12
 
 - Added an in-game UI summary screen.
 - Metrics displayed include:
@@ -84,7 +90,8 @@ The following metrics are tracked per player per session:
 ## Firebase Implementation
 
 **Status:** ✅ Completed
-**Date:** 2025-08-12
+**Date Started:** 2025-08-07
+**Date Ended:** 2025-08-12
 
 - Added Realtime Database integration into the project.
 - All statistics achieved by the player is saved and stored into the Firebase Database, fetched and displayed back into Unity scene.
@@ -95,16 +102,11 @@ The following metrics are tracked per player per session:
 ## Difficulty Implementation
 
 **Status:** ✅ Completed
-**Date:** 2025-08-12
+**Date Started:** 2025-08-07
+**Date Ended:** 2025-08-12
 
 - Added integration of normal and hard difficulty changes in the sequence challenge
 - Players have to remember more numbers and are given less time inbetween each number.
-
----
-
-## 🔄 Upcoming Tasks
-
-- 
 
 ---
 

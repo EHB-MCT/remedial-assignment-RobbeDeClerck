@@ -70,6 +70,7 @@ public class FindAnomalyChallenge : ChallengeBase
 
         resultText.text = $"Incorrect Reports: {incorrectReports}\nTime: {duration:F1}s";
         DataTrackingManager.Instance.TrackChallenge3(incorrectReports, duration);
+        PointsManager.Instance.AddPoints(30);
 
         yield return new WaitUntil(() => !announcer.IsPlaying());
 
