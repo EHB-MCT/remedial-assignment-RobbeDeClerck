@@ -66,6 +66,7 @@ public class ReactionTimeChallenge : ChallengeBase
             resultText.text = $"Reaction Time: {reactionTime:F3} seconds";
 
             DataTrackingManager.Instance.TrackChallenge1(reactionTime);
+            PointsManager.Instance.AddPoints(10);
             announcer.PlayClipByIndex(2); // “Challenge complete...”
 
             StartCoroutine(gameFlowManager.TransitionToChallenge(1));
